@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login/Register Modal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url("mc.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    /* Ini in Button sin Toggling */
+    .openModalBtn {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: blue;
+      color: white;
+      border-radius: 8px;
+    }
+
+    /* Ini in Modal container */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    /* Ini isab in Modal content box */
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .closeBtn {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .container input {
+      width: 94%;
+      padding: 8px;
+      margin: 8px 0;
+    }
+
+    .container button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: blue;
+      color: white;
+      border-radius: 10px;
+    }
+  
+  </style>
+</head>
+<body>
+
+  <button class="openModalBtn" onclick="openModal()">Login / Register</button>
+
+  <div id="authModal" class="modal">
+    <div class="modal-content">
+      <span class="closeBtn" onclick="closeModal()">&times;</span>
+
+      <div class="container" id="register">
+        <h2>Register</h2>
+        <input type="text" id="regUser" placeholder="Username" required>
+        <input type="password" id="regPass" placeholder="Password" required>
+        <button onclick="register()">Register</button>
+        <p>Already have an account? <a href="#" onclick="toggleForms()">Login here</a></p>
+      </div>
+
+      
+      <div class="container" id="login" style="display:none;">
+        <h2>Login</h2>
+        <input type="text" id="logUser" placeholder="Username" required>
+        <input type="password" id="logPass" placeholder="Password" required>
+        <button onclick="login()">Login</button>
+        <p>Don't have an account? <a href="#" onclick="toggleForms()">Register here</a></p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('authModal').style.display = 'block';
+      showLogin(); // default view
+    }
+
+    function closeModal() {
+      document.getElementById('authModal').style.display = 'none';
+    }
+
+    function showLogin() {
+      document.getElementById('loginForm').classList.add('active');
+      document.getElementById('registerForm').classList.remove('active');
+    }
+
+    function showRegister() {
+      document.getElementById('registerForm').classList.add('active');
+      document.getElementById('loginForm').classList.remove('active');
+    }
+    
+
+    // Close modal when clicking outside content
+    window.onclick = function(e) {
+      if (e.target === document.getElementById('authModal')) {
+        closeModal();
+      }
+    }
+
+    // ini in function mag ka lawah
+    function toggleForms() {
+      document.getElementById('register').style.display = 
+          document.getElementById('register').style.display === 'none' ? 'block' : 'none';
+      document.getElementById('login').style.display = 
+          document.getElementById('login').style.display === 'none' ? 'block' : 'none';
+    }
+
+
+      // ini in mag save sin data harap pa local storage.
+      function register() {
+        let user = document.getElementById('regUser').value;
+        let pass = document.getElementById('regPass').value;
+        if (user && pass) {
+            let users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+            users.push({ username: user, password: pass });
+            localStorage.setItem('users', JSON.stringify(users));
+            alert('Registration successful!');
+            toggleForms();
+        } else {
+            alert('Please fill all fields');
+        }
+    }
+
+      
+      // ini in function bang mag amu in user iban password mu
+      function login() {
+        let user = document.getElementById('logUser').value;
+        let pass = document.getElementById('logPass').value;
+        let users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+        let validUser = users.find(u => u.username === user && u.password === pass);
+        if (validUser) {
+            alert('Login successful!');
+            window.location.href = 'new-modal.html'; // Redirect to another page (mag open na sya dugaing page)
+        } else {
+            alert('Invalid username or password');
+        }
+    }
+    
+  </script>
+
+</body>
+</html>
