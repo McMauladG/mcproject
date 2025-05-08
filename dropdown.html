@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home</title>
+  <style>
+    body{
+      margin: 0;
+      background-image: url("Admin.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-color: black;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    /* ini in Button */
+    .dropbtn {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      margin: 15px 10px;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+      border-radius: 4px;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .show {
+      display: block;
+    }
+
+    h1{
+      margin-top: 200px;
+      font-size: 80px;
+      font-weight: 900;
+      text-align: center;
+      color: rgb(255, 255, 255);
+      text-shadow: 2px 5px 8px black;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dropdown">
+    <button onclick="toggleDropdown()" class="dropbtn">Menu</button>
+    <div id="dropdownMenu" class="dropdown-content">
+      <a href="crud.html">My Crud Project</a>
+      <a href="index.html">Logout</a>
+      <a href="#">Option 3</a>
+    </div>
+  </div>
+
+  <h1>SULU STATE COLLEGE <BR> PANAMAO SULU</h1>
+
+  <script>
+    function toggleDropdown() {
+      document.getElementById("dropdownMenu").classList.toggle("show");
+    }
+
+    // Optional: Close the dropdown if user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
